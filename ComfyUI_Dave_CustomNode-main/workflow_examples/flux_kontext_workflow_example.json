@@ -1,0 +1,466 @@
+{
+  "last_node_id": 15,
+  "last_link_id": 25,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [50, 50],
+      "size": [320, 314],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [1, 10],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example_input.jpg",
+        "image"
+      ],
+      "title": "📷 输入图像"
+    },
+    {
+      "id": 2,
+      "type": "FluxKontextPromptHelper",
+      "pos": [50, 400],
+      "size": [400, 280],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "optimized_prompt",
+          "type": "STRING",
+          "links": [2],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "editing_tips",
+          "type": "STRING",
+          "links": [3],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "prompt_analysis",
+          "type": "DICT",
+          "links": [4],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextPromptHelper"
+      },
+      "widgets_values": [
+        "Style Transfer: Transform to [art_style], while maintaining [composition/character/other] unchanged",
+        "Transform to Van Gogh impressionist painting style with visible brushstrokes and rich colors",
+        true,
+        "facial features, composition, lighting, subject positioning"
+      ],
+      "title": "💡 提示词助手"
+    },
+    {
+      "id": 3,
+      "type": "FluxKontextNode",
+      "pos": [500, 50],
+      "size": [400, 450],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1,
+          "slot_index": 0
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "prompt",
+            "config": [
+              "STRING",
+              {
+                "multiline": true,
+                "default": "Change the background to a beautiful sunset landscape"
+              }
+            ]
+          },
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "edited_image",
+          "type": "IMAGE",
+          "links": [5],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "used_prompt",
+          "type": "STRING",
+          "links": [6],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "edit_metadata",
+          "type": "DICT",
+          "links": [7],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextNode"
+      },
+      "widgets_values": [
+        "",
+        "1:1",
+        true,
+        7.5,
+        25,
+        42
+      ],
+      "title": "🎨 Flux Kontext 编辑器"
+    },
+    {
+      "id": 4,
+      "type": "SaveImage",
+      "pos": [950, 50],
+      "size": [315, 270],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 5,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "flux_kontext_edited"
+      ],
+      "title": "💾 保存编辑结果"
+    },
+    {
+      "id": 5,
+      "type": "ShowText|pysssss",
+      "pos": [500, 550],
+      "size": [400, 200],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "text",
+            "config": [
+              "STRING",
+              {
+                "forceInput": true
+              }
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "📝 编辑建议"
+    },
+    {
+      "id": 6,
+      "type": "ShowText|pysssss",
+      "pos": [950, 350],
+      "size": [315, 150],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 6,
+          "widget": {
+            "name": "text",
+            "config": [
+              "STRING",
+              {
+                "forceInput": true
+              }
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "📄 使用的提示词"
+    },
+    {
+      "id": 7,
+      "type": "LoadImage",
+      "pos": [50, 750],
+      "size": [200, 314],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [11],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example_input2.jpg",
+        "image"
+      ],
+      "title": "📷 第二张图像"
+    },
+    {
+      "id": 8,
+      "type": "FluxKontextImageStitch",
+      "pos": [300, 750],
+      "size": [320, 200],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 10,
+          "slot_index": 0
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 11,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stitched_image",
+          "type": "IMAGE",
+          "links": [12],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextImageStitch"
+      },
+      "widgets_values": [
+        "horizontal",
+        "center",
+        10
+      ],
+      "title": "🔗 图像拼接"
+    },
+    {
+      "id": 9,
+      "type": "FluxKontextNode",
+      "pos": [650, 750],
+      "size": [400, 350],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 12,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "edited_image",
+          "type": "IMAGE",
+          "links": [13],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextNode"
+      },
+      "widgets_values": [
+        "Apply the artistic style from the right image to the left image, maintaining the original composition and subject positioning",
+        "16:9",
+        true,
+        7.0,
+        20,
+        123
+      ],
+      "title": "🎨 拼接图像编辑"
+    },
+    {
+      "id": 10,
+      "type": "SaveImage",
+      "pos": [1100, 750],
+      "size": [315, 270],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 13,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "flux_kontext_stitched_edit"
+      ],
+      "title": "💾 保存拼接编辑"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 0, "IMAGE"],
+    [2, 2, 0, 3, 1, "STRING"],
+    [3, 2, 1, 5, 0, "STRING"],
+    [4, 2, 2, null, null, "DICT"],
+    [5, 3, 0, 4, 0, "IMAGE"],
+    [6, 3, 1, 6, 0, "STRING"],
+    [7, 3, 2, null, null, "DICT"],
+    [10, 1, 0, 8, 0, "IMAGE"],
+    [11, 7, 0, 8, 1, "IMAGE"],
+    [12, 8, 0, 9, 0, "IMAGE"],
+    [13, 9, 0, 10, 0, "IMAGE"]
+  ],
+  "groups": [
+    {
+      "title": "基础编辑工作流",
+      "bounding": [30, 10, 1250, 720],
+      "color": "#3f789e",
+      "font_size": 24
+    },
+    {
+      "title": "多图像拼接编辑工作流",
+      "bounding": [30, 730, 1400, 350],
+      "color": "#a1309b",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workflow_info": {
+      "name": "Flux Kontext 完整示例工作流",
+      "description": "演示Flux Kontext节点的完整功能，包括基础编辑和多图像拼接编辑",
+      "version": "1.0.0",
+      "author": "Davemane42",
+      "created_date": "2025-01-27",
+      "comfyui_version": "v0.3.43",
+      "required_nodes": [
+        "FluxKontextNode",
+        "FluxKontextImageStitch", 
+        "FluxKontextPromptHelper",
+        "LoadImage",
+        "SaveImage"
+      ],
+      "workflow_type": "image_editing",
+      "tags": [
+        "flux_kontext",
+        "image_editing",
+        "style_transfer",
+        "multi_image",
+        "ai_art"
+      ]
+    },
+    "usage_notes": {
+      "basic_workflow": {
+        "description": "上半部分展示基础的单图像编辑工作流",
+        "steps": [
+          "1. 加载源图像",
+          "2. 使用提示词助手生成优化的编辑指令",
+          "3. Flux Kontext编辑器执行图像编辑",
+          "4. 保存编辑结果并查看使用的提示词"
+        ],
+        "tips": "启用提示词增强以获得更好的编辑效果"
+      },
+      "stitch_workflow": {
+        "description": "下半部分展示多图像拼接编辑工作流",
+        "steps": [
+          "1. 加载两张图像",
+          "2. 使用图像拼接节点合并图像",
+          "3. 对拼接后的图像进行联合编辑",
+          "4. 保存最终结果"
+        ],
+        "use_cases": [
+          "风格迁移参考",
+          "对比编辑展示",
+          "多角度图像处理"
+        ]
+      }
+    },
+    "best_practices": {
+      "prompt_writing": [
+        "使用具体明确的描述",
+        "明确指出需要保持的元素",
+        "选择合适的编辑类型模板",
+        "启用提示词增强功能"
+      ],
+      "parameter_tuning": [
+        "风格转换: guidance_scale = 7.5",
+        "背景替换: guidance_scale = 8.0",  
+        "对象修改: guidance_scale = 6.5",
+        "文本编辑: guidance_scale = 9.0"
+      ],
+      "workflow_optimization": [
+        "使用提示词助手生成最佳提示词",
+        "选择合适的宽高比避免裁剪",
+        "调整推理步数平衡质量和速度",
+        "使用固定种子确保结果可重现"
+      ]
+    }
+  },
+  "version": 0.4
+} 
